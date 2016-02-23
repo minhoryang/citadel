@@ -1,5 +1,5 @@
 # http://chromedriver.storage.googleapis.com/index.html?path=2.21/
-from json import dump, load
+from json import dump, dumps, load
 from time import sleep
 
 from selenium import webdriver
@@ -101,29 +101,11 @@ def json2txt(json, txt):
     with open(json, 'r') as json:
         o = load(json)
     with open(txt, 'w') as txt:
-        txt.write(o['SearchString'] + '\n')
-        txt.write("\n")
-        for j in o['results']:
-            txt.write("%s / %s\n" % (j['No'], j['Total']))
-            for i in [
-                    'Part',
-                    'Category',
-                    'Name of book',
-                    'Writer',
-                    'Version?',
-                    'Count',
-                    'A',
-                    'B',
-                    'C',
-                    'D',
-                    'E',
-            ]:
-                txt.write('\t' + i + '\n')
-                txt.write('\t\t' + j[i] + '\n')
+        txt.write(dumps(o, indent=4, sort_keys=True, ensure_ascii=False))
         txt.write("\n")
 
 if __name__ == "__main__":
     #query = '恐爲太子'
-    result = search("不亦宜乎")
-    result2json(result, "test.json")
-    #json2txt("test.json", "test.txt")
+    #result = search("不亦宜乎")
+    #result2json(result, "test.json")
+    json2txt("test.json", "test.txt")

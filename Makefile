@@ -2,8 +2,10 @@ pex: citadel.pex
 
 egg:
 	python setup.py sdist
+	pip download selenium -d dist/
+
 citadel.pex: egg requirements.txt
-	pex -o citadel.pex -r requirements.txt -f dist -m citadel.citadel
+	pex -o citadel.pex --no-pypi -f dist/ -m citadel.citadel -r requirements.txt
 
 clean:
-	rm -rf citadel.egg-info build/ dist/ citadel.pex
+	rm -rf citadel.egg-info build/ dist/ citadel.pex citadel/__pycache__/
