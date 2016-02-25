@@ -37,11 +37,14 @@ if __name__ == "__main__":
                 if word:
                     name = "output/%s/%s/%s" % (argv[1], king, word)
                     print(name)
+                    downloaded = False
                     if not isfile("%s.json" % (name,)):
                         result = crawl.search(word)
                         crawl.result2json(result, "%s.json" % (name,))
+                        downloaded = True
                     if not isfile("%s.txt" % (name,)):
                         crawl.json2txt("%s.json" % (name,), "%s.txt" % (name,))
-                    sleep(2)
+                    if downloaded:
+                        sleep(2)
         else:
             pass
